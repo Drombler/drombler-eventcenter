@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: 'drombler-event-center'
+  jpa:
+    properties:
+      hibernate:
+        default_schema: 'DRMBLREVENT'
+  liquibase:
+    change-log: 'classpath:/org/drombler/event/center/integration/persistence/db.changelog-master.xml'
+    default-schema: 'DRMBLREVENT'
+    
+logging:
+  level:
+    org.springframework.security: 'DEBUG'
+
+
+management:
+  endpoints:
+    web:
+      base-path: '/api'
+  endpoint:
+    health:
+      show-details: ALWAYS
