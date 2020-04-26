@@ -1,15 +1,16 @@
 package org.drombler.event.center.integration.persistence;
 
     
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.UUID;
 import javax.persistence.*;
 import org.drombler.commons.spring.jpa.AbstractAuditableEntity;
-import static org.drombler.event.center.integration.persistence.EventEntity.ALLOCATION_SIZE;
-import static org.drombler.event.center.integration.persistence.EventEntity.EVENT_GENERATOR;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@SequenceGenerator(name = EVENT_GENERATOR, sequenceName = "EVENT_SEQ", allocationSize = ALLOCATION_SIZE)
+//@SequenceGenerator(name = EVENT_GENERATOR, sequenceName = "EVENT_SEQ", allocationSize = ALLOCATION_SIZE)
 @Table(name = "EVENT")
 public class EventEntity extends AbstractAuditableEntity {
     public static final int ALLOCATION_SIZE = 1;
@@ -19,11 +20,31 @@ public class EventEntity extends AbstractAuditableEntity {
      * The technical id of this entity (surrogate PK).
      */
     @Id
-    @GeneratedValue(generator = EVENT_GENERATOR, strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID")
+//    @GeneratedValue(generator = EVENT_GENERATOR, strategy = GenerationType.SEQUENCE)
+    @Column
     private Long id;
 
+    @Column(updatable = false)
+    private UUID eventId;
+    
+    @Column
+    private String name;
+    
+    @Column
+    private String preferredDirName;
  
+    @Column
+    private ZonedDateTime startDateTime;
+    
+    @Column
+    private LocalDate startDate;
+    
+    @Column
+    private ZonedDateTime endDateTime;
+    
+    @Column
+    private LocalDate localDate;
+    
     @Version
     @Column(name = "ENTITY_VERSION")
     private Long version;
