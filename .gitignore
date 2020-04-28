@@ -53,3 +53,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/drombler-eventcenter-web/src/main/resources/application-individual.yml
+/drombler-eventcenter-integration-persistence/nbproject/

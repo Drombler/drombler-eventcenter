@@ -1,8 +1,10 @@
 spring:
+  datasource:
+    url: 'jdbc:h2:mem:test'
   jpa:
     properties:
       hibernate:
-        default_schema: 'DROMBLER_EVENT'
+        default_schema: 'TEST'
   liquibase:
     change-log: 'classpath:/org/drombler/eventcenter/integration/persistence/db.changelog-master.xml'
-    default-schema: 'DROMBLER_EVENT' 
+    default-schema: 'TEST' 

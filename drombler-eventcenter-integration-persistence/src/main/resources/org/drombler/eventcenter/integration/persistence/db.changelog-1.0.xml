@@ -7,9 +7,9 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="v1.0-1" author="puce77">
-        <comment>Create EVENT Table</comment>
+        <comment>Create EVENT_CORE Table</comment>
 
-        <createTable tableName="EVENT" remarks="The events">
+        <createTable tableName="EVENT_CORE" remarks="The events"> <!-- EVENT is a reserved SQL keyword -->
             <column name="ID" type="BIGINT" remarks="the technical surrogate PK" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="EVENT_PK" />
             </column>
@@ -54,7 +54,7 @@
 
         <createTable tableName="EVENT_ATTENDEE" remarks="The attendee of an event">
             <column name="EVENT_ID" type="BIGINT" remarks="the event id (foreign key)">
-                <constraints nullable="false" referencedTableName="EVENT" referencedColumnNames="ID" foreignKeyName="ATTENDEE_FK"/>
+                <constraints nullable="false" referencedTableName="EVENT_CORE" referencedColumnNames="ID" foreignKeyName="ATTENDEE_FK"/>
             </column>
             <column name="ATTENDEE" type="VARCHAR(30)" remarks="the formatted Drombler ID of the attendee">
                 <constraints nullable="false"/>
@@ -69,7 +69,7 @@
 
         <createTable tableName="EVENT_OWNER" remarks="The owners of an event (shared multitenancy)">
             <column name="EVENT_ID" type="BIGINT" remarks="the event id (foreign key)">
-                <constraints nullable="false" referencedTableName="EVENT" referencedColumnNames="ID" foreignKeyName="OWNER_FK"/>
+                <constraints nullable="false" referencedTableName="EVENT_CORE" referencedColumnNames="ID" foreignKeyName="OWNER_FK"/>
             </column>
             <column name="OWNER" type="VARCHAR(30)" remarks="the formatted Drombler ID of the owner">
                 <constraints nullable="false"/>
@@ -84,7 +84,7 @@
 
         <createTable tableName="EVENT_ORGANIZER" remarks="The organizers of an event">
             <column name="EVENT_ID" type="BIGINT" remarks="the event id (foreign key)">
-                <constraints nullable="false" referencedTableName="EVENT" referencedColumnNames="ID" foreignKeyName="ORGANIZER_FK"/>
+                <constraints nullable="false" referencedTableName="EVENT_CORE" referencedColumnNames="ID" foreignKeyName="ORGANIZER_FK"/>
             </column>
             <column name="ORGANIZER" type="VARCHAR(30)" remarks="the formatted Drombler ID of the organizer">
                 <constraints nullable="false"/>
@@ -99,7 +99,7 @@
 
         <createTable tableName="EVENT_ORGANIZER" remarks="The organizers of an event">
             <column name="EVENT_ID" type="BIGINT" remarks="the event id (foreign key)">
-                <constraints nullable="false" referencedTableName="EVENT" referencedColumnNames="ID" foreignKeyName="ORGANIZER_FK"/>
+                <constraints nullable="false" referencedTableName="EVENT_CORE" referencedColumnNames="ID" foreignKeyName="ORGANIZER_FK"/>
             </column>
             <column name="ORGANIZER" type="VARCHAR(30)" remarks="the formatted Drombler ID of the organizer">
                 <constraints nullable="false"/>

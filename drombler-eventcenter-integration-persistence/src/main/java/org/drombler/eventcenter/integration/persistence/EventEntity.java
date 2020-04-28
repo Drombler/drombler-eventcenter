@@ -15,7 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 //@SequenceGenerator(name = EVENT_GENERATOR, sequenceName = "EVENT_SEQ", allocationSize = ALLOCATION_SIZE)
-@Table(name = "EVENT")
+@Table(name = "EVENT_CORE") // EVENT is a reserved word in SQL
 public class EventEntity extends AbstractAuditableEntity {
 
     public static final int ALLOCATION_SIZE = 1;
@@ -56,12 +56,6 @@ public class EventEntity extends AbstractAuditableEntity {
 
     @Column
     private Integer endYear;
-
-    @Version
-    @Column(name = "ENTITY_VERSION")
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private Long version;
 
 //    @ElementCollection(fetch = FetchType.EAGER)
 //    @CollectionTable(name="VENDOR_NAMESPACES", joinColumns=@JoinColumn(name="VENDOR_FK"))

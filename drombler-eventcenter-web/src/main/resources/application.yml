@@ -1,13 +1,21 @@
 spring:
   application:
     name: 'drombler-eventcenter'
+  datasource:
+      url: ${EVENTCENTER_DB_URL:}
+      username: ${EVENTCENTER_DB_USERNAME:}
+      password: ${EVENTCENTER_DB_PASSWORD:}
+      tomcat:
+        max-wait: 10000 # Number of ms to wait before throwing an exception if no connection is available.
+        max-active: 50 # Maximum number of active connections that can be allocated from this pool at the same time.
+        test-on-borrow: true # Validate the connection before borrowing it from the pool.
   jpa:
     properties:
       hibernate:
-        default_schema: 'DROMBLER_EVENT'
+        default_schema: ${EVENTCENTER_DB_SCHEMA:}
   liquibase:
     change-log: 'classpath:/org/drombler/eventcenter/integration/persistence/db.changelog-master.xml'
-    default-schema: 'DROMBLER_EVENT'
+    default-schema: ${EVENTCENTER_DB_SCHEMA:}
     
 logging:
   level:
