@@ -1,0 +1,8 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        default_schema: 'DROMBLER_EVENT'
+  liquibase:
+    change-log: 'classpath:/org/drombler/eventcenter/integration/persistence/db.changelog-master.xml'
+    default-schema: 'DROMBLER_EVENT' 

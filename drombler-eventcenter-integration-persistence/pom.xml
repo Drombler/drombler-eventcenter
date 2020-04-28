@@ -31,6 +31,11 @@
             <scope>runtime</scope>
             <!--<scope>test</scope>-->
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
         
         <!-- Testing -->
         <dependency>

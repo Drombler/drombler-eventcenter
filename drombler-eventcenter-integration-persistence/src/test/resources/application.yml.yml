@@ -1,8 +1,0 @@
-spring:
-  jpa:
-    properties:
-      hibernate:
-        default_schema: 'DRMBLREVENT'
-  liquibase:
-    change-log: 'classpath:/org/drombler/event/center/integration/persistence/db.changelog-master.xml'
-    default-schema: 'DRMBLREVENT' 

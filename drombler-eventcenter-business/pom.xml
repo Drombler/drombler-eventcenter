@@ -20,5 +20,9 @@
             <artifactId>drombler-eventcenter-integration-persistence</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-spring-transaction</artifactId>
+        </dependency>
     </dependencies>
 </project>
