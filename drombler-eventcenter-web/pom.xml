@@ -42,18 +42,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>-->
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.liquibase</groupId>-->
+<!--            <artifactId>liquibase-core</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>ch.sbb</groupId>
-            <artifactId>springboot-graceful-shutdown</artifactId>
+            <scope>runtime</scope>
         </dependency>
         
         <dependency>

@@ -1,6 +1,6 @@
 package org.drombler.eventcenter.web;
 
-import ch.sbb.esta.openshift.gracefullshutdown.GracefulshutdownSpringApplication;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class EventCenterApp {
 
     public static void main(String[] args) {
-        GracefulshutdownSpringApplication.run(EventCenterApp.class, args);
+        SpringApplication.run(EventCenterApp.class, args);
     }
 
 }
