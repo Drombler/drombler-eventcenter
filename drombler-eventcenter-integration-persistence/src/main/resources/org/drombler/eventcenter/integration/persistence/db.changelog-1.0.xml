@@ -93,19 +93,5 @@
         
         <addUniqueConstraint tableName="EVENT_ORGANIZER" columnNames="EVENT_ID, ORGANIZER" constraintName="ORGANIZER_UNQ"/>
     </changeSet>
-    
-    <changeSet id="v1.0-4" author="puce77">
-        <comment>Create EVENT_ORGANIZER Table</comment>
 
-        <createTable tableName="EVENT_ORGANIZER" remarks="The organizers of an event">
-            <column name="EVENT_ID" type="BIGINT" remarks="the event id (foreign key)">
-                <constraints nullable="false" referencedTableName="EVENT_CORE" referencedColumnNames="ID" foreignKeyName="ORGANIZER_FK"/>
-            </column>
-            <column name="ORGANIZER" type="VARCHAR(30)" remarks="the formatted Drombler ID of the organizer">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        
-        <addUniqueConstraint tableName="EVENT_ORGANIZER" columnNames="EVENT_ID, ORGANIZER" constraintName="ORGANIZER_UNQ"/>
-    </changeSet>
 </databaseChangeLog>

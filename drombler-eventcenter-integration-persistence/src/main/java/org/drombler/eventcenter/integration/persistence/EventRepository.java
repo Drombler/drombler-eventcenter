@@ -1,24 +1,18 @@
 package org.drombler.eventcenter.integration.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.util.Optional;
+import java.util.UUID;
 
-/**
- *
- * @author Florian
- */
-@Repository
+
+@Component
 public interface EventRepository extends JpaRepository<EventEntity, Long> {
 
-//    public List<EventEntity> findAllByOwner(String dromblerIdFormatted);
+    Optional<EventEntity> findByEventId(UUID eventId);
 
 //    List<VendorEntity> findAllByUsername(String username);
 
-    
+
 }
