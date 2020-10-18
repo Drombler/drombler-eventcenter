@@ -3,6 +3,7 @@ package org.drombler.eventcenter.integration.persistence;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.drombler.commons.spring.jpa.AbstractAuditableEntity;
 import org.drombler.eventcenter.integration.persistence.impl.DromblerIdConverter;
 import org.drombler.identity.core.DromblerId;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@ToString(onlyExplicitlyIncluded = true)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 //@SequenceGenerator(name = EVENT_GENERATOR, sequenceName = "EVENT_SEQ", allocationSize = ALLOCATION_SIZE)
@@ -32,9 +34,11 @@ public class EventEntity extends AbstractAuditableEntity {
     @Setter(AccessLevel.NONE)
     private Long id;
 
+    @ToString.Include
     @Column(updatable = false)
     private UUID eventId;
 
+    @ToString.Include
     @Column
     private String name;
 
@@ -72,10 +76,10 @@ public class EventEntity extends AbstractAuditableEntity {
     private Set<DromblerId> organizers;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "EVENT_ATTENDEE", joinColumns = @JoinColumn(name = "EVENT_ID"))
-    @Column(name = "ATTENDEE")
+    @CollectionTable(name = "EVENT_PARTICIPANT", joinColumns = @JoinColumn(name = "EVENT_ID"))
+    @Column(name = "PARTICIPANT")
     @Convert(converter = DromblerIdConverter.class)
-    private Set<DromblerId> attendees;
+    private Set<DromblerId> participants;
 //
 //    @ElementCollection(fetch = FetchType.EAGER)
 //    @CollectionTable(name="VENDOR_USER", joinColumns=@JoinColumn(name="VENDOR_FK"))
