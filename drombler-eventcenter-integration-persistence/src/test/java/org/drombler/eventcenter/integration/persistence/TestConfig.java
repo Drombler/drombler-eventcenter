@@ -1,8 +1,8 @@
 package org.drombler.eventcenter.integration.persistence;
 
-import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootConfiguration
+@SpringBootApplication
 public class TestConfig {
     
 }
