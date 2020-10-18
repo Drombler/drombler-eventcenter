@@ -113,7 +113,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.drombler.eventcenter.web.EventCenterApp</mainClass>
+                    <mainClass>org.drombler.eventcenter.EventCenterApp</mainClass>
                     <addResources>true</addResources>
                 </configuration>
                 <executions>

@@ -1,17 +1,18 @@
 package org.drombler.eventcenter.business.impl.converter;
 
-import org.drombler.event.core.AllDayEventDuration;
 import org.drombler.event.core.Event;
 import org.drombler.event.core.EventDuration;
-import org.drombler.event.core.YearEventDuration;
 import org.drombler.eventcenter.integration.persistence.EventEntity;
 
-import java.time.Year;
+import java.util.ServiceLoader;
+import java.util.stream.StreamSupport;
 
 /**
  * @author Florian
  */
 public class EventConverter {
+
+    private static final ServiceLoader<EventDurationConverter> EVENT_DURATION_CONVERTER_SERVICE_LOADER = ServiceLoader.load(EventDurationConverter.class);
 
     public Event convertEvent(EventEntity eventEntity) {
         return Event.builder()
@@ -29,13 +30,11 @@ public class EventConverter {
 //        if (eventEntity.getStartDateTime() != null) {
 //            return new DateTimeEventDuration(eventEntity.getStartDateTime(), eventEntity.getEndDateTime());
 //        }
-        if (eventEntity.getStartDate() != null) {
-            return new AllDayEventDuration(eventEntity.getStartDate(), eventEntity.getEndDate());
-        }
-        if (eventEntity.getEndDateTime() != null) {
-            return new YearEventDuration(Year.of(eventEntity.getStartYear()));//, Year.of(eventEntity.getEndYear()));
-        }
-        return null;
+      return   StreamSupport.stream(EVENT_DURATION_CONVERTER_SERVICE_LOADER.spliterator(), false)
+                .filter(eventDurationConverter -> eventDurationConverter.supportsEventEntity(eventEntity))
+                .findFirst()
+                .map(eventDurationConverter -> eventDurationConverter.convertDuration(eventEntity))
+                .orElse(null);
     }
 
 }

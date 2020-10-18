@@ -5,17 +5,20 @@ package org.drombler.eventcenter.web.controller;
  * @author Florian
  */
 
-import java.util.EnumMap;
-import java.util.Map;
-import org.drombler.eventcenter.model.EventCenterException;
+import lombok.extern.slf4j.Slf4j;
 import org.drombler.event.core.protocol.json.ErrorResponse;
 import org.drombler.event.core.protocol.json.EventCenterErrorCode;
+import org.drombler.eventcenter.model.EventCenterException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.EnumMap;
+import java.util.Map;
+
+@Slf4j
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Map<EventCenterErrorCode, HttpStatus> CODE_STATUS_MAP = new EnumMap<>(EventCenterErrorCode.class);
@@ -27,28 +30,27 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(EventCenterException.class)
     public ResponseEntity<ErrorResponse> handleEventCenterException(EventCenterException ex) {
-        ErrorResponse errorResponse = createErrorResponse(ex.getErrorCode(), ex.getMessage());
-        HttpStatus httpStatus = determineHttpStatus(ex.getErrorCode());
-        return handleErrorResponse(errorResponse, httpStatus);
+        return handleException(ex, ex.getErrorCode());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
-        EventCenterErrorCode errorCode = EventCenterErrorCode.EVENTCENTER_ILLEGAL_PROPERTY;
-        ErrorResponse errorResponse = createErrorResponse(errorCode, ex.getMessage());
-        HttpStatus httpStatus = determineHttpStatus(errorCode);
-        return handleErrorResponse(errorResponse, httpStatus);
+        return handleException(ex, EventCenterErrorCode.EVENTCENTER_ILLEGAL_PROPERTY);
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException ex) {
-        EventCenterErrorCode errorCode = EventCenterErrorCode.EVENTCENTER_UNKNOWN;
-        ErrorResponse errorResponse = createErrorResponse(errorCode, ex.getMessage());
-        HttpStatus httpStatus = determineHttpStatus(errorCode);
-        return handleErrorResponse(errorResponse, httpStatus);
+        return handleException(ex, EventCenterErrorCode.EVENTCENTER_UNKNOWN);
     }
 
-    private ResponseEntity<ErrorResponse> handleErrorResponse(ErrorResponse errorResponse, HttpStatus httpStatus) {
+    private ResponseEntity<ErrorResponse> handleException(Exception ex, EventCenterErrorCode errorCode) {
+        log.error(ex.getMessage(), ex);
+        ErrorResponse errorResponse = createErrorResponse(errorCode, ex.getMessage());
+        HttpStatus httpStatus = determineHttpStatus(errorCode);
+        return createResponseEntity(errorResponse, httpStatus);
+    }
+
+    private ResponseEntity<ErrorResponse> createResponseEntity(ErrorResponse errorResponse, HttpStatus httpStatus) {
         return new ResponseEntity<>(errorResponse, httpStatus);
     }
 

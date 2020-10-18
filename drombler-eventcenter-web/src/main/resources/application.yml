@@ -10,15 +10,17 @@ spring:
       max-active: 50 # Maximum number of active connections that can be allocated from this pool at the same time.
       test-on-borrow: true # Validate the connection before borrowing it from the pool.
   jpa:
+    hibernate:
+      ddl-auto: none #validate
     properties:
       hibernate:
         default_schema: ${EVENTCENTER_DB_SCHEMA:}
   liquibase:
     change-log: 'classpath:/org/drombler/eventcenter/integration/persistence/db.changelog-master.xml'
     default-schema: ${EVENTCENTER_DB_SCHEMA:}
-#  jackson:
-#    serialization:
-#      indent_output: true
+  #  jackson:
+  #    serialization:
+  #      indent_output: true
   lifecycle:
     timeout-per-shutdown-phase: 20s
 
