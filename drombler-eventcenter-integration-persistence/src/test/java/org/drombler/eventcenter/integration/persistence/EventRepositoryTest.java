@@ -10,6 +10,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.drombler.eventcenter.integration.persistence.PersistenceTestHelper.TEST_PRIVATE_USER_1_NAME;
 import static org.drombler.eventcenter.integration.persistence.PersistenceTestHelper.createEventEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,24 +20,27 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ComponentScan(basePackages = "org.drombler.eventcenter.integration.persistence")
 public class EventRepositoryTest {
 
-    public static final String TEST_USER = "testuser";
     @Autowired
     private EventRepository testee;
 
     @Test
-    @WithMockUser(username = TEST_USER)
+    @WithMockUser(username = TEST_PRIVATE_USER_1_NAME)
     public void findByEventId() {
         EventEntity eventEntity = createEventEntity();
-        testee.saveAndFlush(eventEntity);
+        eventEntity = testee.saveAndFlush(eventEntity);
 
         Optional<EventEntity> result = testee.findByEventId(eventEntity.getEventId());
 
         assertThat(result).isPresent();
         EventEntity foundEventEntity = result.get();
         assertNotNull(foundEventEntity.getCreatedAt());
-        assertEquals(TEST_USER, foundEventEntity.getCreatedBy());
+        assertEquals(TEST_PRIVATE_USER_1_NAME, foundEventEntity.getCreatedBy());
         assertNotNull(foundEventEntity.getLastModifiedAt());
-        assertEquals(TEST_USER, foundEventEntity.getLastModifiedBy());
+        assertEquals(TEST_PRIVATE_USER_1_NAME, foundEventEntity.getLastModifiedBy());
+
+        assertThat(foundEventEntity.getOwners()).isEqualTo(eventEntity.getOwners());
+        assertThat(foundEventEntity.getOrganizers()).isEqualTo(eventEntity.getOrganizers());
+        assertThat(foundEventEntity.getAttendees()).isEqualTo(eventEntity.getAttendees());
     }
 
 }
