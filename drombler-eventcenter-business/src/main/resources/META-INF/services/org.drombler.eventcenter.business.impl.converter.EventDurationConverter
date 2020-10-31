@@ -1,0 +1,2 @@
+org.drombler.eventcenter.business.impl.converter.AllDayEventDurationConverter
+org.drombler.eventcenter.business.impl.converter.YearEventDurationConverter
