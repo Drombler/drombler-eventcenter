@@ -59,6 +59,7 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
+            <scope>runtime</scope>
         </dependency>
         
         <dependency>
