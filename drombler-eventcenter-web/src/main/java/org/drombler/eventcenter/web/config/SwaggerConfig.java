@@ -37,7 +37,7 @@ public class SwaggerConfig {
 
     private ApiInfo createApiInfo() {
         ApiInfoBuilder builder = new ApiInfoBuilder();
-        return builder.title("Event Center API")
+        return builder.title("Drombler EventCenter API")
                 .version(buildProperties.getVersion())
                 .build();
     }
